@@ -1,0 +1,5 @@
+SECOND = 60
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
+UNIT = 48 # a total of 15 unit tall screen
+UNIT_PER_SEC = UNIT / SECOND
