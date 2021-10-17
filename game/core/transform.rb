@@ -10,14 +10,6 @@ class Transform
         @scale = scale
     end
 
-    def translate(vector)
-        @position += vector
-    end
-
-    def rotate(angle)
-        @rot += angle
-    end
-
     def to_s
         return "[pos:#{@position}, rot:#{@rotation}, scale:#{@scale}"
     end

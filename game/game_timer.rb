@@ -2,10 +2,10 @@ require "app/game/core/game_object.rb"
 require "app/game/core/constant.rb"
 
 class GameTimer < GameObject
+    attr_reader :time_left
 
     def initialize(args)
         @GAME_TIME = 20 * SECOND
-
         @time_left = @GAME_TIME
     end
 
@@ -18,7 +18,6 @@ class GameTimer < GameObject
     end
 
     def game_done?
-        return @time_left <= 0 
+        return @time_left <= 0
     end
-
 end

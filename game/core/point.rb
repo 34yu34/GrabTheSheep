@@ -1,70 +1,69 @@
 class Point
-    attr_accessor :x, :y
+  attr_accessor :x, :y
 
-  def initialize(x=0, y=0)
+  def initialize(x = 0, y = 0)
     @x = x
     @y = y
   end
 
   def to_s
-    return "(#{@x}, #{@y})"
+    "(#{@x}, #{@y})"
   end
 
   def self.[](x, y)
-    return Point.new(x, y)
+    Point.new(x, y)
   end
 
-  def -(pts)
-    operate(:-, pts)
+  def -(other)
+    operate(:-, other)
   end
 
-  def +(pts)
-    operate(:+, pts)
+  def +(other)
+    operate(:+, other)
   end
 
-  def *(pts)
-    operate(:*, pts)
+  def *(other)
+    operate(:*, other)
   end
 
-  def /(pts)
-    operate(:/, pts)
+  def /(other)
+    operate(:/, other)
   end
 
-  def **(pts)
-    operate(:**, pts)
+  def **(other)
+    operate(:**, other)
   end
 
   def dist2(pts)
-    return (self - pts).mag2
+    (self - pts).mag2
   end
 
   def dist(pts)
-    return (self - pts).mag
+    (self - pts).mag
   end
 
   def mag2
-    return (@x**2) + (@y**2)
+    (@x**2) + (@y**2)
   end
 
   def mag
-    return ((@x**2) + (@y**2)) ** 0.5
+    ((@x**2) + (@y**2))**0.5
   end
 
   def normalize
-    return Point.new(@x / mag(), @y / mag())
+    Point.new(@x / mag, @y / mag)
   end
 
-  def angle
-    return Math.atan(normalize.y / normalize.x)
+  def rotation
+    dir = normalize
+    degrees = 180 * Math.atan(dir.y / dir.x) / Math::PI
+    degrees += dir.x.negative? ? 180 : 0
+    (360 + degrees) % 360
   end
 
+  def operate(op, pts)
+    return Point.new(@x.send(op, pts.x), @y.send(op, pts.y)) if pts.is_a?(Point)
 
-  def operate (op, pts)
-    if pts.is_a?(Point)
-        return Point.new(@x.send(op, pts.x), @y.send(op, pts.y))
-    end
-
-    return Point.new(@x.send(op, pts), @y.send(op, pts))
+    Point.new(@x.send(op, pts), @y.send(op, pts))
   end
-
 end
